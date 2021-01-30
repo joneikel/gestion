@@ -5,15 +5,15 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { Scope } from './scope.entity';
+import { Activity } from './activity.entity';
 
 @Entity()
-export class Role {
+export class InvestmentArea {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ unique: true })
   name: string;
-  @ManyToMany(() => Scope)
+  @ManyToMany(() => Activity)
   @JoinTable()
-  scopes: Scope[];
+  activity: Activity[];
 }

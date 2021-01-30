@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
+import { Activity } from './activity.entity';
 import { Program } from './program.entity';
 
 @Entity()
@@ -11,4 +19,7 @@ export class Project {
   description: string;
   @ManyToOne(() => Program, (program) => program.projects)
   program: Project[];
+  @OneToMany(() => Activity, (activity_id) => activity_id.project)
+  @JoinTable()
+  activities: Activity;
 }

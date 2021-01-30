@@ -8,10 +8,10 @@ import {
 import { Scope } from './scope.entity';
 
 @Entity()
-export class Role {
+export class Image {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column({ unique: true })
+  @Column()
   name: string;
   @ManyToMany(() => Scope)
   @JoinTable()

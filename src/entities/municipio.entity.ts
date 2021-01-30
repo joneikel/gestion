@@ -5,17 +5,15 @@ import {
   OneToMany,
   JoinTable,
 } from 'typeorm';
-import { Institution } from './institution.entity';
+import { Parroquia } from './parroquia.entity';
 
 @Entity()
-export class Sector {
+export class Municipio {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ unique: true })
   name: string;
-  @Column({ unique: true })
-  code: string;
-  @OneToMany(() => Institution, (institution) => institution.sector)
+  @OneToMany(() => Parroquia, (parroquia_id) => parroquia_id.municipio_id)
   @JoinTable()
-  institution: Institution;
+  parroquias: Parroquia;
 }
