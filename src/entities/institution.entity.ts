@@ -16,7 +16,7 @@ export class Institution {
   @Column({ unique: true })
   name: string;
   @Column({ nullable: true })
-  parent_id: string;
+  parentId: string;
   @ManyToOne(() => Sector, (sector) => sector.institution)
   @JoinTable()
   sector: Sector;

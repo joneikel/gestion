@@ -34,4 +34,12 @@ export class InstitutionService {
     const institution = await this.institutionRepository.delete({ id });
     return institution.raw;
   }
+
+  async getInstitutionFiltered(filter: any) {
+    const institutions = await this.institutionRepository.find({
+      ...filter,
+      parentId: filter.parentId || null,
+    });
+    return institutions;
+  }
 }

@@ -21,19 +21,29 @@ import { RoleModule } from './modules/role.module';
 import { InstitutionModule } from './modules/institution.module';
 import { SectorModule } from './modules/sector.module';
 import { MeasurementModule } from './modules/measurement.module';
-import { InvestmentAreaModule } from './modules/invesment_area.modules';
+import { InvestmentAreaModule } from './modules/invesment_area.module';
 import { InvestmentArea } from './entities/investment_area.entity';
 import { Measurement } from './entities/measurement.entity';
+import { MunicipioModule } from './modules/municipio.module';
+import { ProjectModule } from './modules/project.module';
+import { ProgramModule } from './modules/programModule';
+import { ParroquiaModule } from './modules/parroquia.module';
+import { ActivityModule } from './modules/activity.module';
 
 @Module({
   imports: [
     UsersModule,
     ModModule,
+    MunicipioModule,
     ScopeModule,
+    ProgramModule,
     RoleModule,
+    ParroquiaModule,
     InstitutionModule,
+    ActivityModule,
     SectorModule,
     MeasurementModule,
+    ProjectModule,
     InvestmentAreaModule,
     ConfigModule.forRoot({
       isGlobal: true,

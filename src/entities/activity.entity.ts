@@ -24,7 +24,7 @@ export class Activity {
   project: Project;
   @Column()
   description: string;
-  @Column()
+  @Column({ type: 'date' })
   date: Date;
   @OneToOne(() => Municipio)
   @JoinColumn()
@@ -41,9 +41,9 @@ export class Activity {
   measurement: Measurement;
   @Column()
   address: string;
-  @Column()
+  @Column({ type: 'date' })
   init_date: Date;
-  @Column()
+  @Column({ type: 'date' })
   end_date: Date;
   @Column()
   estimated_population: number;
@@ -51,11 +51,11 @@ export class Activity {
   benefited_population: number;
   @Column()
   gestion_impact: number;
-  @Column()
+  @Column({ precision: 6, type: 'decimal' })
   latitude: number;
-  @Column()
+  @Column({ precision: 6, type: 'decimal' })
   longitude: number;
   @ManyToMany(() => InvestmentArea)
   @JoinTable()
-  scopes: InvestmentArea[];
+  investmentArea: InvestmentArea[];
 }
