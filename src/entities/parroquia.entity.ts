@@ -7,6 +7,6 @@ export class Parroquia {
   id: string;
   @Column({ unique: true })
   name: string;
-  @ManyToOne(() => Municipio, (municipio_id) => municipio_id.parroquias)
-  municipio_id: Municipio;
+  @ManyToOne(() => Municipio, (municipioId) => municipioId.parroquias)
+  municipioId: Municipio;
 }

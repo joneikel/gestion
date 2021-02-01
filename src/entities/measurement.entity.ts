@@ -8,7 +8,7 @@ export class Measurement {
   @Column({ unique: true })
   name: string;
   @Column({ unique: true })
-  short_name: string;
+  shortName: string;
   @OneToMany(() => Activity, (activity) => activity.measurement)
   activity: Activity;
 }

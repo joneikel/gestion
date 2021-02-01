@@ -22,21 +22,19 @@ export class Activity {
   id: string;
   @Column()
   name: string;
-  @ManyToOne(() => Project, (project_id) => project_id.activities)
+  @ManyToOne(() => Project, (projectId) => projectId.activities)
   project: Project;
   @Column()
   description: string;
-  @Column({ type: 'date' })
-  date: Date;
   @OneToOne(() => Municipio)
   @JoinColumn()
-  municipio_id: Municipio;
+  municipio: Municipio;
   @OneToOne(() => Parroquia)
   @JoinColumn()
-  parroquia_id: Parroquia;
+  parroquia: Parroquia;
   @Column()
   gobernador: boolean;
-  @Column()
+  @Column({ nullable: true })
   conclusion: string;
   @ManyToOne(() => Measurement, (measurement) => measurement.activity)
   @JoinTable()
@@ -44,18 +42,18 @@ export class Activity {
   @Column()
   address: string;
   @Column({ type: 'date' })
-  init_date: Date;
+  initDate: Date;
   @Column({ type: 'date' })
-  end_date: Date;
+  endDate: Date;
   @Column()
-  estimated_population: number;
+  estimatedPopulation: number;
   @Column()
-  benefited_population: number;
+  benefitedPopulation: number;
   @Column()
-  gestion_impact: number;
-  @Column({ precision: 6, type: 'decimal' })
+  gestionImpact: number;
+  @Column({ precision: 6, type: 'decimal', nullable: true })
   latitude: number;
-  @Column({ precision: 6, type: 'decimal' })
+  @Column({ precision: 6, type: 'decimal', nullable: true })
   longitude: number;
   @ManyToMany(() => InvestmentArea)
   @JoinTable()
