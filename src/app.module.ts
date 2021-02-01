@@ -29,6 +29,8 @@ import { ProjectModule } from './modules/project.module';
 import { ProgramModule } from './modules/programModule';
 import { ParroquiaModule } from './modules/parroquia.module';
 import { ActivityModule } from './modules/activity.module';
+import { ImageModule } from './modules/image.module';
+import { Image } from './entities/image.entity';
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { ActivityModule } from './modules/activity.module';
     InstitutionModule,
     ActivityModule,
     SectorModule,
+    ImageModule,
     MeasurementModule,
     ProjectModule,
     InvestmentAreaModule,
@@ -66,6 +69,7 @@ import { ActivityModule } from './modules/activity.module';
         Sector,
         Parroquia,
         Municipio,
+        Image,
         Activity,
         InvestmentArea,
         Measurement,

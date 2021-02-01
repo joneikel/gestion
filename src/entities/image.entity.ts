@@ -2,10 +2,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
+  ManyToOne,
   JoinTable,
 } from 'typeorm';
-import { Scope } from './scope.entity';
+import { Activity } from './activity.entity';
 
 @Entity()
 export class Image {
@@ -13,7 +13,7 @@ export class Image {
   id: string;
   @Column()
   name: string;
-  @ManyToMany(() => Scope)
+  @ManyToOne(() => Activity, (activity) => activity.images)
   @JoinTable()
-  scopes: Scope[];
+  activity: Activity;
 }

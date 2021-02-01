@@ -7,7 +7,9 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
+import { Image } from './image.entity';
 import { InvestmentArea } from './investment_area.entity';
 import { Measurement } from './measurement.entity';
 import { Municipio } from './municipio.entity';
@@ -58,4 +60,6 @@ export class Activity {
   @ManyToMany(() => InvestmentArea)
   @JoinTable()
   investmentArea: InvestmentArea[];
+  @OneToMany(() => Image, (image) => image.activity)
+  images: Image[];
 }
