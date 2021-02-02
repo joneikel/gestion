@@ -2,8 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Institution } from './institution.entity';
 import { Role } from './role.entity';
@@ -24,10 +24,10 @@ export class User {
   password: string;
   @Column({ default: true })
   isActive: boolean;
-  @OneToOne(() => Role)
+  @ManyToOne(() => Role, (role) => role.users)
   @JoinColumn()
   role: Role;
-  @OneToOne(() => Institution)
+  @ManyToOne(() => Institution, (institution) => institution.users)
   @JoinColumn()
   institution: Institution;
 }

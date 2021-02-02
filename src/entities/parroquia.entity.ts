@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
+import { Activity } from './activity.entity';
 import { Municipio } from './municipio.entity';
 
 @Entity()
@@ -7,6 +15,9 @@ export class Parroquia {
   id: string;
   @Column({ unique: true })
   name: string;
-  @ManyToOne(() => Municipio, (municipioId) => municipioId.parroquias)
-  municipioId: Municipio;
+  @ManyToOne(() => Municipio, (municipio) => municipio.parroquias)
+  municipio: Municipio;
+  @OneToMany(() => Activity, (activity) => activity.parroquia)
+  @JoinTable()
+  activities: Activity[];
 }

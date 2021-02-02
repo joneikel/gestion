@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToOne,
   JoinColumn,
   JoinTable,
   ManyToMany,
@@ -26,10 +25,10 @@ export class Activity {
   project: Project;
   @Column()
   description: string;
-  @OneToOne(() => Municipio)
+  @ManyToOne(() => Municipio, (municipio) => municipio.activities)
   @JoinColumn()
   municipio: Municipio;
-  @OneToOne(() => Parroquia)
+  @ManyToOne(() => Parroquia, (parroquia) => parroquia.activities)
   @JoinColumn()
   parroquia: Parroquia;
   @Column()

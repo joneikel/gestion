@@ -5,6 +5,7 @@ import {
   OneToMany,
   JoinTable,
 } from 'typeorm';
+import { Activity } from './activity.entity';
 import { Parroquia } from './parroquia.entity';
 
 @Entity()
@@ -13,7 +14,10 @@ export class Municipio {
   id: string;
   @Column({ unique: true })
   name: string;
-  @OneToMany(() => Parroquia, (parroquia) => parroquia.municipioId)
+  @OneToMany(() => Parroquia, (parroquia) => parroquia.municipio)
   @JoinTable()
-  parroquias: Parroquia;
+  parroquias: Parroquia[];
+  @OneToMany(() => Activity, (activity) => activity.municipio)
+  @JoinTable()
+  activities: Activity[];
 }
