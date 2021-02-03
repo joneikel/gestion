@@ -9,8 +9,6 @@ export class Measurement {
   name: string;
   @Column({ unique: true })
   shortName: string;
-  @Column()
-  measurementValue: number;
   @OneToMany(() => Project, (project) => project.measurement)
   project: Project;
 }

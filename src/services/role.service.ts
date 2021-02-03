@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from 'src/entities/role.entity';
 import { Repository } from 'typeorm';
@@ -22,16 +22,17 @@ export class RoleService {
     return await this.rolesRepository.save(role);
   }
 
-  async update(roleData: Role): Promise<Role> {
-    const role = await this.rolesRepository.update(
-      { id: roleData.id },
-      roleData,
-    );
-    return role.raw;
+  async update(id: string, roleData: Partial<Role>): Promise<Role> {
+    await this.rolesRepository.update(id, roleData);
+    return await this.rolesRepository.findOne(id);
   }
 
-  async delete(id: string): Promise<Role> {
-    const role = await this.rolesRepository.delete({ id });
-    return role.raw;
+  async delete(id: string): Promise<boolean> {
+    try {
+      await this.rolesRepository.delete(id);
+      return true;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
   }
 }

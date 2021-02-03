@@ -33,6 +33,8 @@ export class Project {
   @ManyToOne(() => Measurement, (measurement) => measurement.project)
   @JoinTable()
   measurement: Measurement;
+  @Column()
+  measurementValue: number;
   @OneToMany(() => Budget, (budgets) => budgets.project)
   budgets: Budget[];
   @ManyToOne(() => ProjectStatus, (status) => status.project)
@@ -40,4 +42,8 @@ export class Project {
   status: ProjectStatus;
   @Column('int')
   isPlanified: number;
+  @Column({ type: 'date' })
+  initDate: Date;
+  @Column({ type: 'date', nullable: true })
+  endDate: Date;
 }
