@@ -52,7 +52,7 @@ import { ActivityModule } from './modules/activity.module';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'joneikel',
+      username: 'postgres',
       password: '0000',
       database: 'gestion',
       entities: [
