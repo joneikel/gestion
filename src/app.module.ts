@@ -14,6 +14,8 @@ import { Sector } from './entities/sector.entity';
 import { Parroquia } from './entities/parroquia.entity';
 import { Municipio } from './entities/municipio.entity';
 import { Activity } from './entities/activity.entity';
+import { Budget } from './entities/budget.entity';
+import { BudgetSource } from './entities/budget_source.entity';
 import { UsersModule } from './modules/users.module';
 import { ModModule } from './modules/mod.module';
 import { ScopeModule } from './modules/scope.module';
@@ -31,6 +33,10 @@ import { ParroquiaModule } from './modules/parroquia.module';
 import { ActivityModule } from './modules/activity.module';
 import { ImageModule } from './modules/image.module';
 import { Image } from './entities/image.entity';
+import { ProjectStatus } from './entities/project_status.entity';
+import { BudgetSourceModule } from './modules/budget_source.module';
+import { ProjectStatusModule } from './modules/project_status.module';
+import { BudgetModule } from './modules/budget.module';
 
 @Module({
   imports: [
@@ -45,8 +51,11 @@ import { Image } from './entities/image.entity';
     ActivityModule,
     SectorModule,
     ImageModule,
+    BudgetModule,
+    BudgetSourceModule,
     MeasurementModule,
     ProjectModule,
+    ProjectStatusModule,
     InvestmentAreaModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -55,8 +64,8 @@ import { Image } from './entities/image.entity';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'joneikel',
-      password: '0000',
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       database: 'gestion',
       entities: [
         User,
@@ -64,6 +73,7 @@ import { Image } from './entities/image.entity';
         Mod,
         Role,
         Project,
+        Budget,
         Institution,
         Program,
         Sector,
@@ -71,10 +81,15 @@ import { Image } from './entities/image.entity';
         Municipio,
         Image,
         Activity,
+        BudgetSource,
         InvestmentArea,
         Measurement,
+        ProjectStatus,
       ],
+      dropSchema: false,
       synchronize: true,
+      logNotifications: true,
+      logging: ['error', 'info', 'log', 'migration', 'schema', 'warn', 'query'],
     }),
   ],
   controllers: [AppController],

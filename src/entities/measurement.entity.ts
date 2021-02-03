@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Activity } from './activity.entity';
+import { Project } from './project.entity';
 
 @Entity()
 export class Measurement {
@@ -9,6 +9,8 @@ export class Measurement {
   name: string;
   @Column({ unique: true })
   shortName: string;
-  @OneToMany(() => Activity, (activity) => activity.measurement)
-  activity: Activity;
+  @Column()
+  measurementValue: number;
+  @OneToMany(() => Project, (project) => project.measurement)
+  project: Project;
 }

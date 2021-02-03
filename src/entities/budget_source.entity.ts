@@ -2,18 +2,18 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
+  ManyToOne,
   JoinTable,
 } from 'typeorm';
-import { Project } from './project.entity';
+import { Budget } from './budget.entity';
 
 @Entity()
-export class InvestmentArea {
+export class BudgetSource {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ unique: true })
   name: string;
-  @ManyToMany(() => Project)
+  @ManyToOne(() => Budget, (budget) => budget.budgetSources)
   @JoinTable()
-  project: Project[];
+  budget: Budget;
 }
