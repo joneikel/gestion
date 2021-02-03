@@ -17,7 +17,9 @@ export class Activity {
   id: string;
   @Column()
   name: string;
-  @ManyToOne(() => Project, (project) => project.activities)
+  @ManyToOne(() => Project, (project) => project.activities, {
+    onDelete: 'CASCADE',
+  })
   project: Project;
   @Column()
   description: string;

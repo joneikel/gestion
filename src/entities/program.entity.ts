@@ -18,6 +18,8 @@ export class Program {
   description: string;
   @ManyToOne(() => Institution, (institution) => institution.programs)
   institution: Institution;
-  @OneToMany(() => Project, (project) => project.program)
+  @OneToMany(() => Project, (project) => project.program, {
+    onDelete: 'CASCADE',
+  })
   projects: Project[];
 }
