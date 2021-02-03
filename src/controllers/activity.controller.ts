@@ -26,6 +26,7 @@ export class ActivityController {
     @UploadedFiles() files: FileUpload[],
   ): Promise<Activity> {
     const filePaths = files.map((file) => file.path);
+    console.log(filePaths);
     return await this.activityService.create(data as Activity);
   }
 
