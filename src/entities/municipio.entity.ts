@@ -13,7 +13,7 @@ export class Municipio {
   id: string;
   @Column({ unique: true })
   name: string;
-  @OneToMany(() => Parroquia, (parroquia_id) => parroquia_id.municipio_id)
+  @OneToMany(() => Parroquia, (parroquia) => parroquia.municipioId)
   @JoinTable()
   parroquias: Parroquia;
 }

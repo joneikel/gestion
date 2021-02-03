@@ -25,5 +25,4 @@ export class ProjectController {
   async getProjet(@Param() id: string) {
     return await this.projectService.show(id);
   }
-
 }

@@ -29,6 +29,8 @@ import { ProjectModule } from './modules/project.module';
 import { ProgramModule } from './modules/programModule';
 import { ParroquiaModule } from './modules/parroquia.module';
 import { ActivityModule } from './modules/activity.module';
+import { ImageModule } from './modules/image.module';
+import { Image } from './entities/image.entity';
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { ActivityModule } from './modules/activity.module';
     InstitutionModule,
     ActivityModule,
     SectorModule,
+    ImageModule,
     MeasurementModule,
     ProjectModule,
     InvestmentAreaModule,
@@ -52,8 +55,8 @@ import { ActivityModule } from './modules/activity.module';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: '0000',
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       database: 'gestion',
       entities: [
         User,
@@ -66,6 +69,7 @@ import { ActivityModule } from './modules/activity.module';
         Sector,
         Parroquia,
         Municipio,
+        Image,
         Activity,
         InvestmentArea,
         Measurement,

@@ -14,6 +14,10 @@ export class ParroquiaService {
     return await this.parroquiaRepository.find();
   }
 
+  async getParroquiaFiltered(filter: Partial<Parroquia>): Promise<Parroquia[]> {
+    return await this.parroquiaRepository.find(filter);
+  }
+
   async show(id: string): Promise<Parroquia> {
     return await this.parroquiaRepository.findOne(id, {
       relations: ['municipio'],

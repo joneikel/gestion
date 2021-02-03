@@ -19,7 +19,7 @@ export class Project {
   description: string;
   @ManyToOne(() => Program, (program) => program.projects)
   program: Project[];
-  @OneToMany(() => Activity, (activity_id) => activity_id.project)
+  @OneToMany(() => Activity, (activityId) => activityId.project)
   @JoinTable()
   activities: Activity;
 }
