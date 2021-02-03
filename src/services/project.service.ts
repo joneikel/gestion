@@ -40,9 +40,4 @@ export class ProjectService {
     const project = await this.projectRepository.delete({ id });
     return project.raw;
   }
-
-  async countActivities(id: string): Promise<number> {
-    const project = await this.projectRepository.findOne(id);
-    return project.activities.length;
-  }
 }
