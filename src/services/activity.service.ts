@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Activity } from 'src/entities/activity.entity';
 import { Repository } from 'typeorm';
@@ -28,16 +28,17 @@ export class ActivityService {
     return await this.activityRepository.save(activity);
   }
 
-  async update(activityData: Activity): Promise<Activity> {
-    const activity = await this.activityRepository.update(
-      { id: activityData.id },
-      activityData,
-    );
-    return activity.raw;
+  async update(id: string, acyivityData: Partial<Activity>): Promise<Activity> {
+    await this.activityRepository.update(id, acyivityData);
+    return await this.activityRepository.findOne(id);
   }
 
-  async delete(id: string): Promise<Activity> {
-    const activity = await this.activityRepository.delete({ id });
-    return activity.raw;
+  async delete(id: string): Promise<boolean> {
+    try {
+      await this.activityRepository.delete(id);
+      return true;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
   }
 }
