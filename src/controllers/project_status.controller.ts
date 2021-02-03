@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ProjectStatus } from 'src/entities/project_status.entity';
 import { ProjectStatusService } from 'src/services/project_status.service';
 
-@Controller('projectStatus')
+@Controller('project-status')
 export class ProjectStatusController {
   constructor(private projectStatusService: ProjectStatusService) {}
 

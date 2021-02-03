@@ -17,11 +17,9 @@ export class ActivityService {
   async show(id: string): Promise<Activity> {
     return await this.activityRepository.findOne(id, {
       relations: [
-        'measurement',
         'project',
-        'municipioId',
-        'parroquiaId',
-        'investmentArea',
+        'municipio',
+        'parroquia',
       ],
     });
   }

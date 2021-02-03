@@ -15,5 +15,5 @@ export class InvestmentArea {
   name: string;
   @ManyToMany(() => Project)
   @JoinTable()
-  project: Project[];
+  projects: Project[];
 }

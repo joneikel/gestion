@@ -8,5 +8,6 @@ import { BudgetController } from 'src/controllers/budget.controller';
   imports: [TypeOrmModule.forFeature([Budget])],
   providers: [BudgetService],
   controllers: [BudgetController],
+  exports:[BudgetService, TypeOrmModule]
 })
 export class BudgetModule {}

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Delete } from '@nestjs/common';
 import { InvestmentArea } from 'src/entities/investment_area.entity';
 import { InvestmentAreaService } from 'src/services/investmet_area.service';
 
@@ -10,4 +10,21 @@ export class InvestmentAreaController {
   async createInvestmentArea(@Body() data): Promise<InvestmentArea> {
     return await this.investmentAreaService.create(data as InvestmentArea);
   }
+
+  @Get()
+  async getInvestmentAreas(): Promise<InvestmentArea[]> {
+    return await this.investmentAreaService.index();
+  }
+
+  @Get(':id')
+  async getInvestmentArea(@Param() id: string) {
+    return await this.investmentAreaService.show(id);
+  }
+
+  @Delete(':id')
+  async deleteInvestmentArea(@Param() id: string) {
+    return await this.investmentAreaService.delete(id);
+  }
+
+
 }

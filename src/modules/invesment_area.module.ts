@@ -9,4 +9,4 @@ import { InvestmentAreaController } from 'src/controllers/investment_area.contro
   providers: [InvestmentAreaService],
   controllers: [InvestmentAreaController],
 })
-export class InvestmentAreaModule {}
+export class InvestmentAreaModule { }
