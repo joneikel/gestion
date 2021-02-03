@@ -13,6 +13,8 @@ export class Image {
   id: string;
   @Column()
   name: string;
+  @Column()
+  path: string;
   @ManyToOne(() => Activity, (activity) => activity.images)
   @JoinTable()
   activity: Activity;

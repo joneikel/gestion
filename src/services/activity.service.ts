@@ -19,8 +19,8 @@ export class ActivityService {
       relations: [
         'measurement',
         'project',
-        'municipio_id',
-        'parroquia_id',
+        'municipioId',
+        'parroquiaId',
         'investmentArea',
       ],
     });

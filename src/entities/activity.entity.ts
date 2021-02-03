@@ -3,15 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToOne,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   OneToMany,
 } from 'typeorm';
 import { Image } from './image.entity';
-import { InvestmentArea } from './investment_area.entity';
-import { Measurement } from './measurement.entity';
 import { Municipio } from './municipio.entity';
 import { Parroquia } from './parroquia.entity';
 import { Project } from './project.entity';
@@ -22,23 +17,20 @@ export class Activity {
   id: string;
   @Column()
   name: string;
-  @ManyToOne(() => Project, (projectId) => projectId.activities)
+  @ManyToOne(() => Project, (project) => project.activities)
   project: Project;
   @Column()
   description: string;
-  @OneToOne(() => Municipio)
+  @ManyToOne(() => Municipio, (municipio) => municipio.activities)
   @JoinColumn()
   municipio: Municipio;
-  @OneToOne(() => Parroquia)
+  @ManyToOne(() => Parroquia, (parroquia) => parroquia.activities)
   @JoinColumn()
   parroquia: Parroquia;
   @Column()
   gobernador: boolean;
   @Column({ nullable: true })
   conclusion: string;
-  @ManyToOne(() => Measurement, (measurement) => measurement.activity)
-  @JoinTable()
-  measurement: Measurement;
   @Column()
   address: string;
   @Column({ type: 'date' })
@@ -49,15 +41,10 @@ export class Activity {
   estimatedPopulation: number;
   @Column()
   benefitedPopulation: number;
-  @Column()
-  gestionImpact: number;
   @Column({ precision: 6, type: 'decimal', nullable: true })
   latitude: number;
   @Column({ precision: 6, type: 'decimal', nullable: true })
   longitude: number;
-  @ManyToMany(() => InvestmentArea)
-  @JoinTable()
-  investmentArea: InvestmentArea[];
   @OneToMany(() => Image, (image) => image.activity)
   images: Image[];
 }

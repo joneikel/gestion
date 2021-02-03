@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Program } from './program.entity';
 import { Sector } from './sector.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Institution {
@@ -23,4 +24,7 @@ export class Institution {
   @OneToMany(() => Program, (program) => program.institution)
   @JoinTable()
   programs: Program;
+  @OneToMany(() => User, (users) => users.institution)
+  @JoinTable()
+  users: User[];
 }
