@@ -55,8 +55,8 @@ import { Image } from './entities/image.entity';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'MnD13yFa',
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       database: 'gestion',
       entities: [
         User,
