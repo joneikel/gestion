@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Activity } from 'src/entities/activity.entity';
+import { Image } from 'src/entities/image.entity';
 import { ActivityService } from 'src/services/activity.service';
 
 @Controller('activity')
@@ -25,7 +26,13 @@ export class ActivityController {
     @Body() data,
     @UploadedFiles() files: FileUpload[],
   ): Promise<Activity> {
-    const filePaths = files.map((file) => file.path);
+    const images = files.map((file) => {
+      const image = new Image();
+      image.path = file.path;
+      image.name = file.filename;
+      return image;
+    });
+    data.images = images;
     return await this.activityService.create(data as Activity);
   }
 
