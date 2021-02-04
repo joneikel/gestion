@@ -29,7 +29,7 @@ export class Project {
   activities: Activity[];
   @ManyToMany(() => InvestmentArea)
   @JoinTable()
-  investmentArea: InvestmentArea[];
+  investmentAreas: InvestmentArea[];
   @ManyToOne(() => Measurement, (measurement) => measurement.project)
   @JoinTable()
   measurement: Measurement;

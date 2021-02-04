@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
 import { Measurement } from 'src/entities/measurement.entity';
 import { MeasurementService } from 'src/services/measurement.service';
 
@@ -9,5 +9,10 @@ export class MeasurementController {
   @Post()
   async createMeasurement(@Body() data): Promise<Measurement> {
     return await this.measurementService.create(data as Measurement);
+  }
+
+  @Get()
+  async getMeasurement(): Promise<Measurement[]> {
+    return await this.measurementService.index();
   }
 }

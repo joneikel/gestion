@@ -2,8 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Budget } from './budget.entity';
 
@@ -13,7 +13,7 @@ export class BudgetSource {
   id: string;
   @Column({ unique: true })
   name: string;
-  @ManyToOne(() => Budget, (budget) => budget.budgetSources)
+  @OneToMany(() => Budget, (budget) => budget.budgetSource)
   @JoinTable()
-  budget: Budget;
+  budgets: Budget[];
 }

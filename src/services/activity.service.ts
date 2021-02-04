@@ -2,12 +2,14 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Activity } from 'src/entities/activity.entity';
 import { Repository } from 'typeorm';
+import { ImageService } from './image.service';
 
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
     private activityRepository: Repository<Activity>,
+    private imageService: ImageService,
   ) {}
 
   async index(): Promise<Activity[]> {
@@ -16,17 +18,16 @@ export class ActivityService {
 
   async show(id: string): Promise<Activity> {
     return await this.activityRepository.findOne(id, {
-      relations: [
-        'measurement',
-        'project',
-        'municipioId',
-        'parroquiaId',
-        'investmentArea',
-      ],
+      relations: ['project', 'municipio', 'parroquia'],
     });
   }
 
   async create(activity: Activity): Promise<Activity> {
+    const images = activity.images.map((image) =>
+      this.imageService.create(image),
+    );
+    const resolvedImages = await Promise.all(images);
+    activity.images = resolvedImages;
     return await this.activityRepository.save(activity);
   }
 
