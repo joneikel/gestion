@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  JoinTable,
 } from 'typeorm';
 import { Institution } from './institution.entity';
 import { Project } from './project.entity';
@@ -17,6 +18,7 @@ export class Program {
   @Column()
   description: string;
   @ManyToOne(() => Institution, (institution) => institution.programs)
+  @JoinTable()
   institution: Institution;
   @OneToMany(() => Project, (project) => project.program, {
     onDelete: 'CASCADE',

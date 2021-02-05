@@ -24,10 +24,8 @@ export class Activity {
   @Column()
   description: string;
   @ManyToOne(() => Municipio, (municipio) => municipio.activities)
-  @JoinColumn()
   municipio: Municipio;
   @ManyToOne(() => Parroquia, (parroquia) => parroquia.activities)
-  @JoinColumn()
   parroquia: Parroquia;
   @Column()
   gobernador: boolean;

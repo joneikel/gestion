@@ -11,7 +11,9 @@ export class ProgramService {
   ) {}
 
   async index(): Promise<Program[]> {
-    return await this.programRepository.find();
+    return await this.programRepository.find({
+      relations: ['institution'],
+    });
   }
 
   async getProgramsFiltered(filter: Partial<Program>): Promise<Program[]> {

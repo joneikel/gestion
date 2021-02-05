@@ -8,5 +8,6 @@ import { ProgramController } from 'src/controllers/program.controller';
   imports: [TypeOrmModule.forFeature([Program])],
   providers: [ProgramService],
   controllers: [ProgramController],
+  exports: [TypeOrmModule],
 })
 export class ProgramModule {}

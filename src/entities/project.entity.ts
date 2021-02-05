@@ -23,7 +23,8 @@ export class Project {
   @Column()
   description: string;
   @ManyToOne(() => Program, (program) => program.projects)
-  program: Project[];
+  @JoinTable()
+  program: Program;
   @OneToMany(() => Activity, (activity) => activity.project)
   @JoinTable()
   activities: Activity[];
@@ -36,6 +37,7 @@ export class Project {
   @Column()
   measurementValue: number;
   @OneToMany(() => Budget, (budgets) => budgets.project)
+  @JoinTable()
   budgets: Budget[];
   @ManyToOne(() => ProjectStatus, (status) => status.project)
   @JoinTable()

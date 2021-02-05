@@ -4,18 +4,25 @@ import { InvestmentArea } from 'src/entities/investment_area.entity';
 import { Project } from 'src/entities/project.entity';
 import { Repository } from 'typeorm';
 import { BudgetService } from './budget.service';
-import { InvestmentAreaService } from './investmet_area.service';
-
 @Injectable()
 export class ProjectService {
   constructor(
     @InjectRepository(Project)
     private projectRepository: Repository<Project>,
-    private budgetService: BudgetService
-  ) { }
+    private budgetService: BudgetService,
+  ) {}
 
-  async index(): Promise<Project[]> {
-    return await this.projectRepository.find();
+  async index(filters: any): Promise<Project[]> {
+    return await this.projectRepository.find({
+      relations: [
+        'program',
+        'measurement',
+        'status',
+        'activities',
+        'investmentAreas',
+        'budgets',
+      ],
+    });
   }
 
   async getProjectsFiltered(filter: Partial<Project>): Promise<Project[]> {
@@ -24,14 +31,25 @@ export class ProjectService {
 
   async show(id: string): Promise<Project> {
     return await this.projectRepository.findOne(id, {
-      relations: ['program', 'budgets', 'budgets.budgetSource', 'measurement', 'status', 'investmentAreas'],
+      relations: [
+        'program',
+        'budgets',
+        'budgets.budgetSource',
+        'measurement',
+        'status',
+        'investmentAreas',
+      ],
     });
   }
 
   async create(project: Project): Promise<Project> {
-    const budgets = project.budgets.map(budget => this.budgetService.create(budget));
+    const budgets = project.budgets.map((budget) =>
+      this.budgetService.create(budget),
+    );
     const resolvedBudget = await Promise.all(budgets);
-    const investmentAreas = this.generateInvestmentAreasInstances(project.investmentAreas);
+    const investmentAreas = this.generateInvestmentAreasInstances(
+      project.investmentAreas,
+    );
     project.budgets = resolvedBudget;
     project.investmentAreas = investmentAreas;
     return await this.projectRepository.save(project);
@@ -55,12 +73,13 @@ export class ProjectService {
     return project.activities.length;
   }
 
-  private generateInvestmentAreasInstances(investmentAreas: InvestmentArea[]) : InvestmentArea[] {
+  private generateInvestmentAreasInstances(
+    investmentAreas: InvestmentArea[],
+  ): InvestmentArea[] {
     return investmentAreas.map((investmentArea) => {
       const ia = new InvestmentArea();
       ia.id = investmentArea.toString();
       return ia;
     });
   }
-
 }

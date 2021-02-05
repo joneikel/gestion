@@ -12,8 +12,8 @@ export class ProjectController {
   }
 
   @Get()
-  async getProjects(): Promise<Project[]> {
-    return await this.projectService.index();
+  async getProjects(@Param() filters: any): Promise<Project[]> {
+    return await this.projectService.index(filters);
   }
 
   @Get('filter')

@@ -5,9 +5,10 @@ import { ProjectService } from 'src/services/project.service';
 import { ProjectController } from 'src/controllers/project.controller';
 import { BudgetModule } from './budget.module';
 import { BudgetService } from 'src/services/budget.service';
+import { ProgramModule } from './programModule';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project]), BudgetModule],
+  imports: [TypeOrmModule.forFeature([Project]), BudgetModule, ProgramModule],
   providers: [ProjectService, BudgetService],
   controllers: [ProjectController],
 })
