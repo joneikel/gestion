@@ -12,15 +12,15 @@ export class ProjectService {
     private budgetService: BudgetService,
   ) {}
 
-  async index(filters: any): Promise<Project[]> {
+  async index(): Promise<Project[]> {
     return await this.projectRepository.find({
       relations: [
         'program',
+        'budgets',
+        'budgets.budgetSource',
         'measurement',
         'status',
-        'activities',
         'investmentAreas',
-        'budgets',
       ],
     });
   }
