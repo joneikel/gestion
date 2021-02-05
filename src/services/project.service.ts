@@ -15,7 +15,9 @@ export class ProjectService {
   ) { }
 
   async index(): Promise<Project[]> {
-    return await this.projectRepository.find();
+    return await this.projectRepository.find({
+      relations: ['program', 'budgets', 'budgets.budgetSource', 'measurement', 'status', 'investmentAreas'],
+    });
   }
 
   async getProjectsFiltered(filter: Partial<Project>): Promise<Project[]> {

@@ -13,7 +13,9 @@ export class ActivityService {
   ) {}
 
   async index(): Promise<Activity[]> {
-    return await this.activityRepository.find();
+    return await this.activityRepository.find({
+      relations: ['project', 'municipio', 'parroquia','images'],
+    });
   }
 
   async show(id: string): Promise<Activity> {
