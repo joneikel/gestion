@@ -11,11 +11,15 @@ export class MunicipioService {
   ) {}
 
   async index(): Promise<Municipio[]> {
-    return await this.municipioRepository.find();
+    return await this.municipioRepository.find({
+      relations: ['activities'],
+    });
   }
 
   async show(id: string): Promise<Municipio> {
-    return await this.municipioRepository.findOne(id);
+    return await this.municipioRepository.findOne(id, {
+      relations: ['activities'],
+    });
   }
 
   async create(municipio: Municipio): Promise<Municipio> {

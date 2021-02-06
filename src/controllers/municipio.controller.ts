@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Municipio } from 'src/entities/municipio.entity';
 import { MunicipioService } from 'src/services/municipio.service';
 
@@ -14,5 +14,10 @@ export class MunicipioController {
   @Get()
   async getMunicipios(): Promise<Municipio[]> {
     return await this.municipioService.index();
+  }
+
+  @Get(':id')
+  async getMunicipio(@Param() id: string) {
+    return await this.municipioService.show(id);
   }
 }

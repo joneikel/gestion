@@ -14,7 +14,7 @@ export class ActivityService {
 
   async index(): Promise<Activity[]> {
     return await this.activityRepository.find({
-      relations: ['project', 'municipio', 'parroquia','images'],
+      relations: ['project', 'municipio', 'parroquia', 'images'],
     });
   }
 
