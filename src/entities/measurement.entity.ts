@@ -10,5 +10,5 @@ export class Measurement {
   @Column({ unique: true })
   shortName: string;
   @OneToMany(() => Project, (project) => project.measurement)
-  project: Project;
+  projects: Project[];
 }
