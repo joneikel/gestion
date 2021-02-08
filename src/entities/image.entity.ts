@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinTable,
 } from 'typeorm';
 import { Activity } from './activity.entity';
 
@@ -16,6 +15,5 @@ export class Image {
   @Column()
   path: string;
   @ManyToOne(() => Activity, (activity) => activity.images)
-  @JoinTable()
   activity: Activity;
 }

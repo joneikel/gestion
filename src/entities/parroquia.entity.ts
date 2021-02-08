@@ -18,6 +18,5 @@ export class Parroquia {
   @ManyToOne(() => Municipio, (municipio) => municipio.parroquias)
   municipio: Municipio;
   @OneToMany(() => Activity, (activity) => activity.parroquia)
-  @JoinTable()
   activities: Activity[];
 }

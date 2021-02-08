@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  JoinTable,
   OneToMany,
 } from 'typeorm';
 import { Budget } from './budget.entity';
@@ -14,6 +13,5 @@ export class BudgetSource {
   @Column({ unique: true })
   name: string;
   @OneToMany(() => Budget, (budget) => budget.budgetSource)
-  @JoinTable()
   budgets: Budget[];
 }

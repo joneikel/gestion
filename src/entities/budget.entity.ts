@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinTable,
 } from 'typeorm';
 import { BudgetSource } from './budget_source.entity';
 import { Project } from './project.entity';
@@ -21,6 +20,5 @@ export class Budget {
   @ManyToOne(() => Project, (project) => project.budgets)
   project: Project;
   @ManyToOne(() => BudgetSource, (budgetSource) => budgetSource.budgets)
-  @JoinTable()
   budgetSource: BudgetSource;
 }

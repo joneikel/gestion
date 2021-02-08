@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  JoinColumn,
   ManyToOne,
 } from 'typeorm';
 import { Institution } from './institution.entity';
@@ -16,7 +15,7 @@ export class User {
   firstName: string;
   @Column()
   lastName: string;
-  @Column()
+  @Column({ unique: true })
   identification: string;
   @Column({ unique: true })
   email: string;
@@ -25,9 +24,7 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
   @ManyToOne(() => Role, (role) => role.users)
-  @JoinColumn()
   role: Role;
   @ManyToOne(() => Institution, (institution) => institution.users)
-  @JoinColumn()
   institution: Institution;
 }

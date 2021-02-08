@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  JoinTable,
   OneToMany,
   ManyToOne,
 } from 'typeorm';
@@ -18,13 +17,10 @@ export class Institution {
   name: string;
   @Column({ nullable: true })
   parentId: string;
-  @ManyToOne(() => Sector, (sector) => sector.institution)
-  @JoinTable()
+  @ManyToOne(() => Sector, (sector) => sector.institutions)
   sector: Sector;
   @OneToMany(() => Program, (program) => program.institution)
-  @JoinTable()
   programs: Program;
   @OneToMany(() => User, (users) => users.institution)
-  @JoinTable()
   users: User[];
 }

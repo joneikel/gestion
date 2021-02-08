@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  JoinTable,
   OneToMany,
 } from 'typeorm';
 import { Project } from './project.entity';
@@ -16,6 +15,5 @@ export class ProjectStatus {
   @Column()
   isFinal: boolean;
   @OneToMany(() => Project, (project) => project.status)
-  @JoinTable()
-  project: Project[];
+  projects: Project[];
 }

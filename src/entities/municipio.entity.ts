@@ -15,9 +15,7 @@ export class Municipio {
   @Column({ unique: true })
   name: string;
   @OneToMany(() => Parroquia, (parroquia) => parroquia.municipio)
-  @JoinTable()
   parroquias: Parroquia[];
   @OneToMany(() => Activity, (activity) => activity.municipio)
-  @JoinTable()
   activities: Activity[];
 }

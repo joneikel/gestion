@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinColumn,
   OneToMany,
 } from 'typeorm';
 import { Image } from './image.entity';
