@@ -16,6 +16,5 @@ export class Sector {
   @Column({ unique: true })
   code: string;
   @OneToMany(() => Institution, (institution) => institution.sector)
-  @JoinTable()
-  institution: Institution;
+  institutions: Institution[];
 }

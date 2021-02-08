@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
-  JoinTable,
 } from 'typeorm';
 import { Project } from './project.entity';
 
@@ -14,6 +13,5 @@ export class InvestmentArea {
   @Column({ unique: true })
   name: string;
   @ManyToMany(() => Project)
-  @JoinTable()
   projects: Project[];
 }

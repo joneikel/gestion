@@ -1,10 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  JoinTable,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Project } from './project.entity';
 
 @Entity()
@@ -16,6 +10,5 @@ export class ProjectStatus {
   @Column()
   isFinal: boolean;
   @OneToMany(() => Project, (project) => project.status)
-  @JoinTable()
-  project: Project[];
+  projects: Project[];
 }
