@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Program } from './program.entity';
 import { Sector } from './sector.entity';
@@ -20,7 +21,11 @@ export class Institution {
   @ManyToOne(() => Sector, (sector) => sector.institutions)
   sector: Sector;
   @OneToMany(() => Program, (program) => program.institution)
+  @JoinColumn()
   programs: Program;
   @OneToMany(() => User, (users) => users.institution)
+  @JoinColumn()
   users: User[];
+  @Column({ nullable: true })
+  image: string;
 }

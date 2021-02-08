@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Scope } from './scope.entity';
 import { User } from './user.entity';
@@ -17,5 +18,6 @@ export class Role {
   @ManyToMany(() => Scope)
   scopes: Scope[];
   @OneToMany(() => User, (user) => user.role)
+  @JoinColumn()
   users: User[];
 }

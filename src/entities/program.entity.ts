@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Institution } from './institution.entity';
 import { Project } from './project.entity';
@@ -21,5 +22,6 @@ export class Program {
   @OneToMany(() => Project, (project) => project.program, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   projects: Project[];
 }

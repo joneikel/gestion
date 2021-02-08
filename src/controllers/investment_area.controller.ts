@@ -25,6 +25,4 @@ export class InvestmentAreaController {
   async deleteInvestmentArea(@Param() id: string) {
     return await this.investmentAreaService.delete(id);
   }
-
-
 }

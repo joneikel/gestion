@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import { Activity } from './activity.entity';
 import { Parroquia } from './parroquia.entity';
@@ -15,7 +15,9 @@ export class Municipio {
   @Column({ unique: true })
   name: string;
   @OneToMany(() => Parroquia, (parroquia) => parroquia.municipio)
+  @JoinColumn()
   parroquias: Parroquia[];
   @OneToMany(() => Activity, (activity) => activity.municipio)
+  @JoinColumn()
   activities: Activity[];
 }

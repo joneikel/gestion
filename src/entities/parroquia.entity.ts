@@ -3,8 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinTable,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Activity } from './activity.entity';
 import { Municipio } from './municipio.entity';
@@ -18,5 +18,6 @@ export class Parroquia {
   @ManyToOne(() => Municipio, (municipio) => municipio.parroquias)
   municipio: Municipio;
   @OneToMany(() => Activity, (activity) => activity.parroquia)
+  @JoinColumn()
   activities: Activity[];
 }

@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Scope } from './scope.entity';
 
 @Entity()
@@ -8,5 +14,6 @@ export class Mod {
   @Column({ unique: true })
   name: string;
   @OneToMany(() => Scope, (scope) => scope.mod)
+  @JoinColumn()
   scopes: Scope[];
 }

@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import { Institution } from './institution.entity';
 
@@ -16,5 +16,8 @@ export class Sector {
   @Column({ unique: true })
   code: string;
   @OneToMany(() => Institution, (institution) => institution.sector)
+  @JoinColumn()
   institutions: Institution[];
+  @Column({ nullable: true })
+  image: string;
 }
