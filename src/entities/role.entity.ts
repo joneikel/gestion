@@ -1,23 +1,20 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
-  JoinColumn,
-} from 'typeorm';
+import {Table, Column, Model, HasMany, BelongsToMany} from 'sequelize-typescript';
 import { Scope } from './scope.entity';
-import { User } from './user.entity';
 
-@Entity()
-export class Role {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+@Table
+class Role extends Model{
+  
   @Column({ unique: true })
   name: string;
-  @ManyToMany(() => Scope)
+  scopes: Scope[];
+  @BelongsToMany(() => Author, () => BookAuthor)
+  authors: Author[];
+}
+}
+
+  /* @ManyToMany(() => Scope)
   scopes: Scope[];
   @OneToMany(() => User, (user) => user.role)
   @JoinColumn()
-  users: User[];
+  users: User[] */;
 }

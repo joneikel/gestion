@@ -86,7 +86,7 @@ import { BudgetModule } from './modules/budget.module';
         Measurement,
         ProjectStatus,
       ],
-      dropSchema: false,
+      dropSchema: true,
       synchronize: true,
       logNotifications: true,
       logging: ['error', 'info', 'log', 'migration', 'schema', 'warn', 'query'],

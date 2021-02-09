@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Image } from './image.entity';
 import { Municipio } from './municipio.entity';
@@ -45,5 +46,6 @@ export class Activity {
   @Column({ precision: 6, type: 'decimal', nullable: true })
   longitude: number;
   @OneToMany(() => Image, (image) => image.activity)
+  @JoinColumn()
   images: Image[];
 }
