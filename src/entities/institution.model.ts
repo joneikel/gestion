@@ -1,4 +1,48 @@
 import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  HasMany,
+  IsUUID,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+} from 'sequelize-typescript';
+import { Program } from './program.entity';
+import { Sector } from './sector.model';
+import { User } from './user.model';
+
+@Table
+export class Institution extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
+  id: string;
+
+  @Unique(true)
+  @Column
+  name: string;
+
+  @Unique(true)
+  @Column
+  parentId: string;
+
+  @ForeignKey(() => Sector)
+  @Column
+  sectorId: string;
+
+  @BelongsTo(() => Sector)
+  sector: Sector;
+
+  @HasMany(() => Program)
+  programs: Program[];
+
+  @HasMany(() => User)
+  users: User[];
+}
+
+/* import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
@@ -29,3 +73,4 @@ export class Institution {
   @Column({ nullable: true })
   image: string;
 }
+ */

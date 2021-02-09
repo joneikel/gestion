@@ -5,7 +5,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Scope } from './scope.entity';
+import { Scope } from './scope.model';
 
 @Entity()
 export class Mod {

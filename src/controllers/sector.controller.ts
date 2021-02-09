@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Sector } from 'src/entities/sector.entity';
+import { Sector } from 'src/entities/sector.model';
 import { SectorService } from 'src/services/sector.service';
 
 @Controller('sector')

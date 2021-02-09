@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Scope as Scope } from 'src/entities/scope.entity';
+import { Scope as Scope } from 'src/entities/scope.model';
 import { Repository } from 'typeorm';
 
 @Injectable()

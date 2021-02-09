@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { Institution } from 'src/entities/institution.entity';
+import { Institution } from 'src/entities/institution.model';
 import { InstitutionService } from 'src/services/institution.service';
 
 @Controller('institution')

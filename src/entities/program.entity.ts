@@ -6,7 +6,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Institution } from './institution.entity';
+import { Institution } from './institution.model';
 import { Project } from './project.entity';
 
 @Entity()

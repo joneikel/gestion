@@ -7,7 +7,7 @@ import {
   Post,
   Patch,
 } from '@nestjs/common';
-import { Role } from 'src/entities/role.entity';
+import { Role } from 'src/entities/role.model';
 import { RoleService } from 'src/services/role.service';
 
 @Controller('role')

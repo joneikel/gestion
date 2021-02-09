@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { ConfigModule } from '@nestjs/config';
-import { User } from './entities/user.entity';
-import { Scope } from './entities/scope.entity';
+import { User } from './entities/user.model';
+import { Scope } from './entities/scope.model';
 import { Mod } from './entities/mod.entity';
-import { Role } from './entities/role.entity';
+import { Role } from './entities/role.model';
 import { Project } from './entities/project.entity';
-import { Institution } from './entities/institution.entity';
+import { Institution } from './entities/institution.model';
 import { Program } from './entities/program.entity';
-import { Sector } from './entities/sector.entity';
+import { Sector } from './entities/sector.model';
 import { Parroquia } from './entities/parroquia.entity';
 import { Municipio } from './entities/municipio.entity';
 import { Activity } from './entities/activity.entity';
@@ -69,6 +69,9 @@ import { BudgetModule } from './modules/budget.module';
       database: 'gestion',
       entities: [
         User,
+        Role,
+        Scope,
+        /*         User,
         Scope,
         Mod,
         Role,
@@ -84,7 +87,7 @@ import { BudgetModule } from './modules/budget.module';
         BudgetSource,
         InvestmentArea,
         Measurement,
-        ProjectStatus,
+        ProjectStatus, */
       ],
       dropSchema: true,
       synchronize: true,
