@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { Project } from 'src/entities/project.entity';
+import { Project } from 'src/entities/project.model';
 import { ProjectService } from 'src/services/project.service';
 
 @Controller('project')

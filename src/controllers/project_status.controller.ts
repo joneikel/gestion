@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ProjectStatus } from 'src/entities/project_status.entity';
+import { ProjectStatus } from 'src/entities/projectStatus.model';
 import { ProjectStatusService } from 'src/services/project_status.service';
 
 @Controller('project-status')

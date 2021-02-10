@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Municipio } from 'src/entities/municipio.entity';
+import { Municipio } from 'src/entities/municipio.model';
 import { MunicipioService } from 'src/services/municipio.service';
 
 @Controller('municipio')

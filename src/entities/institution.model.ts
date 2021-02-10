@@ -9,7 +9,7 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript';
-import { Program } from './program.entity';
+import { Program } from './program.model';
 import { Sector } from './sector.model';
 import { User } from './user.model';
 

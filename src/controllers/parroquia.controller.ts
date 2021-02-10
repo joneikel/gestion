@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { Parroquia } from 'src/entities/parroquia.entity';
+import { Parroquia } from 'src/entities/parroquia.model';
 import { ParroquiaService } from 'src/services/parroquia.service';
 
 @Controller('parroquia')

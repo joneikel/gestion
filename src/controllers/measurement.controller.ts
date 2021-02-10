@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
-import { Measurement } from 'src/entities/measurement.entity';
+import { Measurement } from 'src/entities/measurement.model';
 import { MeasurementService } from 'src/services/measurement.service';
 
 @Controller('measurement')

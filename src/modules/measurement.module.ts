@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Measurement } from 'src/entities/measurement.entity';
+import { Measurement } from 'src/entities/measurement.model';
 import { MeasurementService } from 'src/services/measurement.service';
 import { MeasurementController } from 'src/controllers/measurement.controller';
 

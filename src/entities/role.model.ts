@@ -6,7 +6,11 @@ import {
   BelongsTo,
   IsUUID,
   PrimaryKey,
+  Unique,
+  HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
+import { RoleScope } from './roleScope.model';
 import { Scope } from './scope.model';
 import { User } from './user.model';
 
@@ -17,22 +21,15 @@ export class Role extends Model {
   @Column
   id: string;
 
-  @Column({ unique: true })
+  @Unique(true)
+  @Column
   name: string;
 
-  @ForeignKey(() => Scope)
-  @Column
-  scopeId: string;
+  @BelongsToMany(() => Scope, ()=> RoleScope)
+  scopes: Scope[];
 
-  @BelongsTo(() => Scope)
-  scope: Scope;
-
-  @ForeignKey(() => User)
-  @Column
-  userId: string;
-
-  @BelongsTo(() => User)
-  user: User;
+  @HasMany(() => User)
+  users: User[];
 }
 
 /* @ManyToMany(() => Scope)

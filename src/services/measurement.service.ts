@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Measurement } from 'src/entities/measurement.entity';
+import { Measurement } from 'src/entities/measurement.model';
 import { Role } from 'src/entities/role.model';
 import { Repository } from 'typeorm';
 

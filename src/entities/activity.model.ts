@@ -1,4 +1,70 @@
-import {
+import { AllowNull, BelongsTo, Column, ForeignKey, HasMany, IsUUID, Model, PrimaryKey, Table, Unique } from 'sequelize-typescript';
+import { Image } from './image.model';
+import { Parroquia } from './parroquia.model';
+import { Project } from './project.model';
+
+@Table
+export class Activity extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
+  id: string;
+
+  @Unique(true)
+  @Column
+  name: string;
+
+  @ForeignKey(() => Project)
+  @Column
+  projectId: string
+  @BelongsTo(() => Project)
+  project: Project;
+
+  @AllowNull(true)
+  @Column
+  description: string;
+
+  @ForeignKey(() => Parroquia)
+  @Column
+  parroquiaId: string;
+  @BelongsTo(() => Parroquia)
+  parroquia: Parroquia;
+
+  @Column
+  gobernador: boolean;
+
+  @AllowNull(true)
+  @Column
+  conclision: string;
+
+  @Column
+  address: string;
+
+  @Column
+  initDate: Date;
+
+  @Column
+  endDate: Date;
+
+  @Column
+  estimatedPopulation: number;
+
+  @Column
+  benefitedPopulation: number;
+
+  @AllowNull(true)
+  @Column
+  latitude: number;
+
+  @AllowNull(true)
+  @Column
+  longitude: number;
+
+  @HasMany(() => Image)
+  images: Image[];
+
+}
+/* import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
@@ -9,7 +75,7 @@ import {
 import { Image } from './image.entity';
 import { Municipio } from './municipio.entity';
 import { Parroquia } from './parroquia.entity';
-import { Project } from './project.entity';
+import { Project } from './project.model';
 
 @Entity()
 export class Activity {
@@ -49,3 +115,4 @@ export class Activity {
   @JoinColumn()
   images: Image[];
 }
+ */

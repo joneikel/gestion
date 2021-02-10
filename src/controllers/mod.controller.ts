@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Mod } from 'src/entities/mod.entity';
+import { Mod } from 'src/entities/mod.model';
 import { ModService } from 'src/services/mod.service';
 
 @Controller('mod')

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProjectStatus } from 'src/entities/project_status.entity';
+import { ProjectStatus } from 'src/entities/projectStatus.model';
 import { Repository } from 'typeorm';
 
 @Injectable()

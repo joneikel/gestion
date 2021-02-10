@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Activity } from 'src/entities/activity.entity';
+import { Activity } from 'src/entities/activity.model';
 import { ActivityService } from 'src/services/activity.service';
 import { ActivityController } from 'src/controllers/activity.controller';
 import { ImageModule } from './image.module';

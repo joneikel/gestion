@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Activity } from 'src/entities/activity.entity';
+import { Activity } from 'src/entities/activity.model';
 import { Repository } from 'typeorm';
 import { ImageService } from './image.service';
 

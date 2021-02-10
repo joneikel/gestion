@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProjectStatus } from 'src/entities/project_status.entity';
+import { ProjectStatus } from 'src/entities/projectStatus.model';
 import { ProjectStatusService } from 'src/services/project_status.service';
 import { ProjectStatusController } from 'src/controllers/project_status.controller';
 

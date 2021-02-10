@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Budget } from 'src/entities/budget.entity';
+import { Budget } from 'src/entities/budget.model';
 import { BudgetService } from 'src/services/budget.service';
 
 @Controller('budget')

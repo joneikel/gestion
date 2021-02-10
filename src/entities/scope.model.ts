@@ -3,11 +3,14 @@ import {
   Column,
   Model,
   ForeignKey,
-  BelongsTo,
   IsUUID,
   PrimaryKey,
+  BelongsToMany,
+  BelongsTo,
 } from 'sequelize-typescript';
+import { Mod } from './mod.model';
 import { Role } from './role.model';
+import { RoleScope } from './roleScope.model';
 
 @Table
 export class Scope extends Model {
@@ -22,12 +25,15 @@ export class Scope extends Model {
   @Column
   label: string;
 
-  @ForeignKey(() => Role)
+  @ForeignKey(()=> Mod)
   @Column
-  roleId: string;
+  modId: string;
 
-  @BelongsTo(() => Role)
-  role: Role;
+  @BelongsTo(()=> Mod)
+  mod: Mod;
+
+  @BelongsToMany(() => Role, () => RoleScope)
+  roles: Role[];
 }
 
 /* import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';

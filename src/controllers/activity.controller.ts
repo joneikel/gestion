@@ -8,8 +8,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Activity } from 'src/entities/activity.entity';
-import { Image } from 'src/entities/image.entity';
+import { Activity } from 'src/entities/activity.model';
+import { Image } from 'src/entities/image.model';
 import { ActivityService } from 'src/services/activity.service';
 
 @Controller('activity')

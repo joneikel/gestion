@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Municipio } from 'src/entities/municipio.entity';
+import { Municipio } from 'src/entities/municipio.model';
 import { MunicipioService } from 'src/services/municipio.service';
 import { MunicipioController } from 'src/controllers/municipio.controller';
 

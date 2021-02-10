@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Project } from 'src/entities/project.entity';
+import { Project } from 'src/entities/project.model';
 import { ProjectService } from 'src/services/project.service';
 import { ProjectController } from 'src/controllers/project.controller';
 import { BudgetModule } from './budget.module';

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Parroquia } from 'src/entities/parroquia.entity';
+import { Parroquia } from 'src/entities/parroquia.model';
 import { Repository } from 'typeorm';
 
 @Injectable()

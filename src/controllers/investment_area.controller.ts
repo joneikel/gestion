@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Get, Param, Delete } from '@nestjs/common';
-import { InvestmentArea } from 'src/entities/investment_area.entity';
+import { InvestmentArea } from 'src/entities/investmentArea.model';
 import { InvestmentAreaService } from 'src/services/investmet_area.service';
 
 @Controller('investmentArea')

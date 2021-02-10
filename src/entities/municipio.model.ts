@@ -1,11 +1,28 @@
-import {
+import { Column, HasMany, IsUUID, Model, PrimaryKey, Table, Unique } from 'sequelize-typescript';
+import { Parroquia } from './parroquia.model';
+@Table
+export class Municipio extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
+  id: string;
+
+  @Unique(true)
+  @Column
+  name: string;
+
+  @HasMany(() => Parroquia)
+  parroquias: Parroquia[];
+
+}
+/* import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Activity } from './activity.entity';
+import { Activity } from './activity.model';
 import { Parroquia } from './parroquia.entity';
 
 @Entity()
@@ -21,3 +38,4 @@ export class Municipio {
   @JoinColumn()
   activities: Activity[];
 }
+ */

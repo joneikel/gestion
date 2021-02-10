@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Image } from 'src/entities/image.entity';
+import { Image } from 'src/entities/image.model';
 import { ImageService } from 'src/services/image.service';
 
 @Controller('image')
