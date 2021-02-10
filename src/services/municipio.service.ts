@@ -1,41 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Municipio } from 'src/entities/municipio.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class MunicipioService {
   constructor(
-    @InjectRepository(Municipio)
+    @InjectModel(Municipio)
     private municipioRepository: Repository<Municipio>,
-  ) {}
+  ) { }
 
   async index(): Promise<Municipio[]> {
-    return await this.municipioRepository.find({
-      relations: ['activities'],
-    });
+    return await this.municipioRepository.findAll();
   }
 
   async show(id: string): Promise<Municipio> {
-    return await this.municipioRepository.findOne(id, {
-      relations: ['activities'],
-    });
+    return await this.municipioRepository.findOne({ where: { id } });
   }
 
   async create(municipio: Municipio): Promise<Municipio> {
-    return await this.municipioRepository.save(municipio);
-  }
-
-  async update(municipioData: Municipio): Promise<Municipio> {
-    const municipio = await this.municipioRepository.update(
-      { id: municipioData.id },
-      municipioData,
-    );
-    return municipio.raw;
+    return await this.municipioRepository.create(municipio);
   }
 
   async delete(id: string): Promise<Municipio> {
-    const municipio = await this.municipioRepository.delete({ id });
-    return municipio.raw;
+    try {
+      const municipio = await this.municipioRepository.findOne({ where: { id } });
+      await municipio.destroy();
+      return municipio;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+
   }
 }

@@ -10,10 +10,10 @@ export class ParroquiaController {
   async createParroquia(@Body() data: Parroquia): Promise<Parroquia> {
     return await this.parroquiaService.create(data);
   }
-  @Get('filter')
+/*   @Get('filter')
   async getParroquiaFiltered(@Query() query: Partial<Parroquia>) {
     return await this.parroquiaService.getParroquiaFiltered(query);
-  }
+  } */
   @Get()
   async getParroquia(): Promise<Parroquia[]> {
     return await this.parroquiaService.index();

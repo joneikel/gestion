@@ -1,38 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Measurement } from 'src/entities/measurement.model';
 import { Role } from 'src/entities/role.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class MeasurementService {
   constructor(
-    @InjectRepository(Measurement)
+    @InjectModel(Measurement)
     private measurementRepository: Repository<Measurement>,
-  ) {}
+  ) { }
 
   async index(): Promise<Measurement[]> {
-    return await this.measurementRepository.find();
+    return await this.measurementRepository.findAll();
   }
 
   async show(id: string): Promise<Measurement> {
-    return await this.measurementRepository.findOne(id);
+    return await this.measurementRepository.findOne({ where: { id } });
   }
 
   async create(measurement: Measurement): Promise<Measurement> {
-    return await this.measurementRepository.save(measurement);
+    return await this.measurementRepository.create(measurement);
   }
 
-  async update(measurementData: Measurement): Promise<Measurement> {
-    const measurement = await this.measurementRepository.update(
-      { id: measurementData.id },
-      measurementData,
-    );
-    return measurement.raw;
-  }
-
-  async delete(id: string): Promise<Role> {
-    const role = await this.measurementRepository.delete({ id });
-    return role.raw;
+  async delete(id: string): Promise<Measurement> {
+    try {
+      const measurement = await this.measurementRepository.findOne({ where: { id } });
+      await measurement.destroy();
+      return measurement;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
   }
 }

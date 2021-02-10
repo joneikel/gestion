@@ -1,39 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { BudgetSource } from 'src/entities/budgetSource.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class BudgetSourceService {
   constructor(
-    @InjectRepository(BudgetSource)
+    @InjectModel(BudgetSource)
     private budgetSourceRepository: Repository<BudgetSource>,
-  ) {}
+  ) { }
 
   async index(): Promise<BudgetSource[]> {
-    return await this.budgetSourceRepository.find();
+    return await this.budgetSourceRepository.findAll();
   }
 
   async show(id: string): Promise<BudgetSource> {
-    return await this.budgetSourceRepository.findOne(id, {
-      relations: ['budgets'],
-    });
+    return await this.budgetSourceRepository.findOne({ where: { id } });
   }
 
   async create(budgetSource: BudgetSource): Promise<BudgetSource> {
-    return await this.budgetSourceRepository.save(budgetSource);
-  }
-
-  async update(budgetSourceData: BudgetSource): Promise<BudgetSource> {
-    const budgetSource = await this.budgetSourceRepository.update(
-      { id: budgetSourceData.id },
-      budgetSourceData,
-    );
-    return budgetSource.raw;
+    return await this.budgetSourceRepository.create(budgetSource);
   }
 
   async delete(id: string): Promise<BudgetSource> {
-    const budgetSource = await this.budgetSourceRepository.delete({ id });
-    return budgetSource.raw;
+    try {
+        const budgetSource = await this.budgetSourceRepository.findOne({ where: { id } });
+        await  budgetSource.destroy();
+        return budgetSource;  
+    } catch (error) {
+       throw new HttpException(error.toString(), 500);
+    }
+    
   }
 }

@@ -16,10 +16,10 @@ export class ProjectController {
     return await this.projectService.index();
   }
 
-  @Get('filter')
+/*   @Get('filter')
   async getProjectsFiltered(@Query() query: Partial<Project>) {
     return await this.projectService.getProjectsFiltered(query);
-  }
+  } */
 
   @Get(':id')
   async getProjet(@Param() id: string) {

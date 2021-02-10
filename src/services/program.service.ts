@@ -1,45 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Program } from 'src/entities/program.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class ProgramService {
   constructor(
-    @InjectRepository(Program)
+    @InjectModel(Program)
     private programRepository: Repository<Program>,
-  ) {}
+  ) { }
 
   async index(): Promise<Program[]> {
-    return await this.programRepository.find({
-      relations: ['institution'],
-    });
-  }
-
-  async getProgramsFiltered(filter: Partial<Program>): Promise<Program[]> {
-    return await this.programRepository.find(filter);
+    return await this.programRepository.findAll();
   }
 
   async show(id: string): Promise<Program> {
-    return await this.programRepository.findOne(id, {
-      relations: ['institution', 'projects'],
-    });
+    return await this.programRepository.findOne({ where: { id } });
   }
 
   async create(program: Program): Promise<Program> {
-    return await this.programRepository.save(program);
-  }
-
-  async update(programData: Program): Promise<Program> {
-    const program = await this.programRepository.update(
-      { id: programData.id },
-      programData,
-    );
-    return program.raw;
+    return await this.programRepository.create(program);
   }
 
   async delete(id: string): Promise<Program> {
-    const program = await this.programRepository.delete({ id });
-    return program.raw;
+    try {
+      const program = await this.programRepository.findOne({ where: { id } });
+      await program.destroy();
+      return program;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
   }
 }

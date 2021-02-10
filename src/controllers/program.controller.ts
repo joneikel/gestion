@@ -16,8 +16,8 @@ export class ProgramController {
     return await this.programService.index();
   }
 
-  @Get('filter')
+/*   @Get('filter')
   async getProgramsFiltered(@Query() query: Partial<Program>) {
     return await this.programService.getProgramsFiltered(query);
-  }
+  } */
 }

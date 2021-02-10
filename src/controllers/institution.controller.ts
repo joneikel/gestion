@@ -11,12 +11,12 @@ export class InstitutionController {
     return await this.institutionService.create(data as Institution);
   }
 
-  @Get('/filter')
+ /*  @Get('/filter')
   async getInstitutionFiltered(
     @Query() filters: Partial<Institution>,
   ): Promise<Institution[]> {
     return await this.institutionService.getInstitutionFiltered(filters);
-  }
+  } */
 
   @Get()
   async getInstitution(): Promise<Institution[]> {

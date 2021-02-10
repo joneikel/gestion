@@ -1,75 +1,79 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { InvestmentArea } from 'src/entities/investmentArea.model';
 import { Project } from 'src/entities/project.model';
-import { Repository } from 'typeorm';
+
 import { BudgetService } from './budget.service';
 @Injectable()
 export class ProjectService {
   constructor(
-    @InjectRepository(Project)
+    @InjectModel(Project)
     private projectRepository: Repository<Project>,
     private budgetService: BudgetService,
-  ) {}
+  ) { }
 
   async index(): Promise<Project[]> {
-    return await this.projectRepository.find({
-      relations: [
-        'program',
-        'budgets',
-        'budgets.budgetSource',
-        'measurement',
-        'status',
-        'investmentAreas',
-      ],
+    return await this.projectRepository.findAll({
+      where: {
+        relations: [
+          'program',
+          'budgets',
+          'budgets.budgetSource',
+          'measurement',
+          'status',
+          'investmentAreas',
+        ],
+      }
     });
   }
 
-  async getProjectsFiltered(filter: Partial<Project>): Promise<Project[]> {
-    return await this.projectRepository.find(filter);
-  }
+  /* async getProjectsFiltered(filter: Partial<Project>): Promise<Project[]> {
+    return await this.projectRepository.findOne({where:{filter}});
+  } */
 
   async show(id: string): Promise<Project> {
-    return await this.projectRepository.findOne(id, {
-      relations: [
-        'program',
-        'budgets',
-        'budgets.budgetSource',
-        'measurement',
-        'status',
-        'investmentAreas',
-      ],
+    return await this.projectRepository.findOne({
+      where: {
+        id,
+        relations: [
+          'program',
+          'budgets',
+          'budgets.budgetSource',
+          'measurement',
+          'status',
+          'investmentAreas',
+        ],
+      }
     });
   }
 
   async create(project: Project): Promise<Project> {
-    const budgets = project.budgets.map((budget) =>
+    const budgets = project.budget.map((budget) =>
       this.budgetService.create(budget),
     );
     const resolvedBudget = await Promise.all(budgets);
     const investmentAreas = this.generateInvestmentAreasInstances(
-      project.investmentAreas,
+      project.investmentArea,
     );
-    project.budgets = resolvedBudget;
-    project.investmentAreas = investmentAreas;
-    return await this.projectRepository.save(project);
-  }
-
-  async update(projectData: Project): Promise<Project> {
-    const project = await this.projectRepository.update(
-      { id: projectData.id },
-      projectData,
-    );
-    return project.raw;
+    project.budget = resolvedBudget;
+    project.investmentArea = investmentAreas;
+    return await this.projectRepository.create(project);
   }
 
   async delete(id: string): Promise<Project> {
-    const project = await this.projectRepository.delete({ id });
-    return project.raw;
+    try {
+      const project = await this.projectRepository.findOne({ where: { id } });
+      await project.destroy();
+      return project;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+
   }
 
   async countActivities(id: string): Promise<number> {
-    const project = await this.projectRepository.findOne(id);
+    const project = await this.projectRepository.findOne({ where: { id } });
     return project.activities.length;
   }
 

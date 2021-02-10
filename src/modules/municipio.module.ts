@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { Municipio } from 'src/entities/municipio.model';
 import { MunicipioService } from 'src/services/municipio.service';
 import { MunicipioController } from 'src/controllers/municipio.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Municipio])],
+  imports: [SequelizeModule.forFeature([Municipio])],
   providers: [MunicipioService],
   controllers: [MunicipioController],
 })

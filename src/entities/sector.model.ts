@@ -1,4 +1,5 @@
 import {
+  BelongsToMany,
   Column,
   HasMany,
   IsUUID,
@@ -7,6 +8,7 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript';
+import { Institution } from './institution.model';
 
 @Table
 export class Sector extends Model {
@@ -20,10 +22,6 @@ export class Sector extends Model {
   @Unique(true)
   @Column
   code: string;
-  @HasMany(() => )
-  @OneToMany(() => Institution, (institution) => institution.sector)
-  @JoinColumn()
-  institutions: Institution[];
 }
 /* import {
   Entity,

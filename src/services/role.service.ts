@@ -1,35 +1,32 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Role } from 'src/entities/role.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class RoleService {
   constructor(
-    @InjectRepository(Role)
+    @InjectModel(Role)
     private rolesRepository: Repository<Role>,
-  ) {}
+  ) { }
 
   async index(): Promise<Role[]> {
-    return await this.rolesRepository.find();
+    return await this.rolesRepository.findAll();
   }
 
   async show(id: string): Promise<Role> {
-    return await this.rolesRepository.findOne(id);
+    return await this.rolesRepository.findOne({ where: { id } });
   }
 
   async create(role: Role): Promise<Role> {
-    return await this.rolesRepository.save(role);
-  }
-
-  async update(id: string, roleData: Partial<Role>): Promise<Role> {
-    await this.rolesRepository.update(id, roleData);
-    return await this.rolesRepository.findOne(id);
+    return await this.rolesRepository.create(role);
   }
 
   async delete(id: string): Promise<boolean> {
     try {
-      await this.rolesRepository.delete(id);
+      const role = await this.rolesRepository.findOne({ where: { id } });
+      await role.destroy();
       return true;
     } catch (error) {
       throw new HttpException(error.toString(), 500);

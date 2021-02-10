@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SequelizeModule } from '@nestjs/sequelize';
 
 import { ConfigModule } from '@nestjs/config';
 import { User } from './entities/user.model';
@@ -60,39 +61,19 @@ import { BudgetModule } from './modules/budget.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
+    SequelizeModule.forRoot({
+      dialect: 'postgres',
       host: 'localhost',
       port: 5432,
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: 'gestion',
-      entities: [
-        User,
-        Role,
-        Scope,
-        /*         User,
-        Scope,
-        Mod,
-        Role,
-        Project,
-        Budget,
-        Institution,
-        Program,
-        Sector,
-        Parroquia,
-        Municipio,
-        Image,
-        Activity,
-        BudgetSource,
-        InvestmentArea,
-        Measurement,
-        ProjectStatus, */
+      models: [
+        User
       ],
-      dropSchema: true,
+      autoLoadModels: true,
       synchronize: true,
-      logNotifications: true,
-      logging: ['error', 'info', 'log', 'migration', 'schema', 'warn', 'query'],
+      logging: true,
     }),
   ],
   controllers: [AppController],

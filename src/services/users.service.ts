@@ -1,39 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { User } from 'src/entities/user.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
+    @InjectModel(User)
     private usersRepository: Repository<User>,
   ) {}
 
   async index(): Promise<User[]> {
-    return await this.usersRepository.find();
+    return await this.usersRepository.findAll();
   }
 
   async show(id: string): Promise<User> {
-    return await this.usersRepository.findOne(id, {
+    return await this.usersRepository.findOne({where:{id, 
       relations: ['role', 'institution', 'role.scopes'],
-    });
+    }});
   }
 
   async create(user: User): Promise<User> {
-    return await this.usersRepository.save(user);
-  }
-
-  async update(userData: User): Promise<User> {
-    const user = await this.usersRepository.update(
-      { id: userData.id },
-      userData,
-    );
-    return user.raw;
+    return await this.usersRepository.create({where: {user}});
   }
 
   async delete(id: string): Promise<User> {
-    const user = await this.usersRepository.delete({ id });
-    return user.raw;
+    try {
+      const user = await this.usersRepository.findOne({where:{ id }});
+      await user.destroy();
+      return user;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+    
   }
 }

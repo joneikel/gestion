@@ -24,10 +24,10 @@ export class RoleController {
     return await this.roleService.index();
   }
 
-  @Patch(':id')
+/*   @Patch(':id')
   async updateRole(@Param() id: string, @Body() roleData: Partial<Role>) {
     return await this.roleService.update(id, roleData);
-  }
+  } */
 
   @Delete(':id')
   async deleteRole(@Param() id: string) {

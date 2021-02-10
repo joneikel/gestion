@@ -1,43 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Parroquia } from 'src/entities/parroquia.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class ParroquiaService {
   constructor(
-    @InjectRepository(Parroquia)
+    @InjectModel(Parroquia)
     private parroquiaRepository: Repository<Parroquia>,
-  ) {}
+  ) { }
 
   async index(): Promise<Parroquia[]> {
-    return await this.parroquiaRepository.find();
-  }
-
-  async getParroquiaFiltered(filter: Partial<Parroquia>): Promise<Parroquia[]> {
-    return await this.parroquiaRepository.find(filter);
+    return await this.parroquiaRepository.findAll();
   }
 
   async show(id: string): Promise<Parroquia> {
-    return await this.parroquiaRepository.findOne(id, {
-      relations: ['municipio'],
-    });
+    return await this.parroquiaRepository.findOne({ where: { id } });
   }
 
   async create(parroquia: Parroquia): Promise<Parroquia> {
-    return await this.parroquiaRepository.save(parroquia);
-  }
-
-  async update(parroquiaData: Parroquia): Promise<Parroquia> {
-    const parroquia = await this.parroquiaRepository.update(
-      { id: parroquiaData.id },
-      parroquiaData,
-    );
-    return parroquia.raw;
+    return await this.parroquiaRepository.create(parroquia);
   }
 
   async delete(id: string): Promise<Parroquia> {
-    const parroquia = await this.parroquiaRepository.delete({ id });
-    return parroquia.raw;
+    try {
+      const parroquia = await this.parroquiaRepository.findOne({ where: { id } });
+      await parroquia.destroy();
+      return parroquia;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+
   }
 }

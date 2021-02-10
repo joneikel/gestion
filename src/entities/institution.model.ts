@@ -1,5 +1,5 @@
 import {
-  BelongsTo,
+  HasOne,
   Column,
   ForeignKey,
   HasMany,
@@ -32,7 +32,7 @@ export class Institution extends Model {
   @Column
   sectorId: string;
 
-  @BelongsTo(() => Sector)
+  @HasOne(() => Sector)
   sector: Sector;
 
   @HasMany(() => Program)

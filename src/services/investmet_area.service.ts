@@ -1,37 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { InvestmentArea } from 'src/entities/investmentArea.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class InvestmentAreaService {
   constructor(
-    @InjectRepository(InvestmentArea)
+    @InjectModel(InvestmentArea)
     private investmentAreaRepository: Repository<InvestmentArea>,
-  ) {}
+  ) { }
 
   async index(): Promise<InvestmentArea[]> {
-    return await this.investmentAreaRepository.find();
+    return await this.investmentAreaRepository.findAll();
   }
 
   async show(id: string): Promise<InvestmentArea> {
-    return await this.investmentAreaRepository.findOne(id);
+    return await this.investmentAreaRepository.findOne({ where: { id } });
   }
 
   async create(investmentArea: InvestmentArea): Promise<InvestmentArea> {
-    return await this.investmentAreaRepository.save(investmentArea);
-  }
-
-  async update(investmentAreaDaata: InvestmentArea): Promise<InvestmentArea> {
-    const role = await this.investmentAreaRepository.update(
-      { id: investmentAreaDaata.id },
-      investmentAreaDaata,
-    );
-    return role.raw;
+    return await this.investmentAreaRepository.create({ where: { investmentArea } });
   }
 
   async delete(id: string): Promise<InvestmentArea> {
-    const investmentArea = await this.investmentAreaRepository.delete({ id });
-    return investmentArea.raw;
+    try {
+      const investmentArea = await this.investmentAreaRepository.findOne({ where: { id } });
+      await investmentArea.destroy()
+      return investmentArea;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+
   }
 }

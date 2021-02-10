@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { Budget } from 'src/entities/budget.model';
 import { BudgetService } from 'src/services/budget.service';
 import { BudgetController } from 'src/controllers/budget.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Budget])],
+  imports: [SequelizeModule.forFeature([Budget])],
   providers: [BudgetService],
   controllers: [BudgetController],
-  exports:[BudgetService, TypeOrmModule]
+  exports:[BudgetService, SequelizeModule]
 })
 export class BudgetModule {}

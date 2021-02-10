@@ -1,39 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Scope as Scope } from 'src/entities/scope.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class ScopeService {
   constructor(
-    @InjectRepository(Scope)
+    @InjectModel(Scope)
     private scopeRepository: Repository<Scope>,
-  ) {}
+  ) { }
 
   async index(): Promise<Scope[]> {
-    return await this.scopeRepository.find();
+    return await this.scopeRepository.findAll();
   }
 
   async show(id: string): Promise<Scope> {
-    return await this.scopeRepository.findOne(id, {
-      relations: ['mod'],
+    return await this.scopeRepository.findOne({
+      where: {
+        id,
+        relations: ['mod'],
+      }
     });
   }
 
   async create(scope: Scope): Promise<Scope> {
-    return await this.scopeRepository.save(scope);
-  }
-
-  async update(scopeData: Scope): Promise<Scope> {
-    const scope = await this.scopeRepository.update(
-      { id: scopeData.id },
-      scopeData,
-    );
-    return scope.raw;
+    return await this.scopeRepository.create({ where: { scope } });
   }
 
   async delete(id: string): Promise<Scope> {
-    const scope = await this.scopeRepository.delete({ id });
-    return scope.raw;
+    try {
+      const scope = await this.scopeRepository.findOne({ where: { id } });
+      await scope.destroy();
+      return scope;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+    
+    
   }
 }

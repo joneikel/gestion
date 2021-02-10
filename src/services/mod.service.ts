@@ -1,38 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Mod } from 'src/entities/mod.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class ModService {
   constructor(
-    @InjectRepository(Mod)
+    @InjectModel(Mod)
     private modRepository: Repository<Mod>,
-  ) {}
+  ) { }
 
   async index(): Promise<Mod[]> {
-    return await this.modRepository.find({
-      relations: ['scopes'],
-    });
+    return await this.modRepository.findAll();
   }
 
   async show(id: string): Promise<Mod> {
-    return await this.modRepository.findOne(id, {
-      relations: ['scopes'],
-    });
+    return await this.modRepository.findOne({ where: { id } });
   }
 
   async create(mod: Mod): Promise<Mod> {
-    return await this.modRepository.save(mod);
-  }
-
-  async update(modData: Mod): Promise<Mod> {
-    const mod = await this.modRepository.update({ id: modData.id }, modData);
-    return mod.raw;
+    return await this.modRepository.create(mod);
   }
 
   async delete(id: string): Promise<Mod> {
-    const mod = await this.modRepository.delete({ id });
-    return mod.raw;
+    try {
+      const mod = await this.modRepository.findOne({ where: { id } });
+      await mod.destroy();
+      return mod;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
+    
   }
 }

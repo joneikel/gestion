@@ -1,45 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Repository } from 'sequelize-typescript';
 import { Institution } from 'src/entities/institution.model';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class InstitutionService {
   constructor(
-    @InjectRepository(Institution)
+    @InjectModel(Institution)
     private institutionRepository: Repository<Institution>,
-  ) {}
+  ) { }
 
   async index(): Promise<Institution[]> {
-    return await this.institutionRepository.find();
+    return await this.institutionRepository.findAll();
   }
 
   async show(id: string): Promise<Institution> {
-    return await this.institutionRepository.findOne(id);
+    return await this.institutionRepository.findOne({ where: { id } });
   }
 
   async create(institution: Institution): Promise<Institution> {
-    return await this.institutionRepository.save(institution);
-  }
-
-  async update(institutionData: Institution): Promise<Institution> {
-    const institution = await this.institutionRepository.update(
-      { id: institutionData.id },
-      institutionData,
-    );
-    return institution.raw;
+    return await this.institutionRepository.create(institution);
   }
 
   async delete(id: string): Promise<Institution> {
-    const institution = await this.institutionRepository.delete({ id });
-    return institution.raw;
+    try {
+      const institution = await this.institutionRepository.findOne({ where: { id } });
+      await institution.destroy();
+      return institution;
+    } catch (error) {
+      throw new HttpException(error.toString(), 500);
+    }
   }
 
-  async getInstitutionFiltered(filter: any) {
-    const institutions = await this.institutionRepository.find({
-      ...filter,
-      parentId: filter.parentId || null,
-    });
-    return institutions;
-  }
 }

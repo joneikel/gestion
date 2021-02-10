@@ -20,12 +20,17 @@ export class Budget extends Model {
   @Column
   petro: number;
 
-  @HasMany(() => Project)
-  projects: Project[];
+  @ForeignKey(() => Project)
+  @Column
+  projectId: string;
+
+  @BelongsTo(() => Project)
+  projects: Project;
 
   @ForeignKey(() => BudgetSource)
   @Column
   budgetSourceId: string;
+  
   @BelongsTo(() => BudgetSource)
   budgetSource: BudgetSource;
 
